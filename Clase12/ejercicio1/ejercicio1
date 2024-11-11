@@ -1,0 +1,51 @@
+1.
+
+Un atacante podría intentar las siguientes acciones maliciosas:
+
+- **Inyección de SQL:** Intentar enviar consultas maliciosas para manipular o acceder a la base de datos.
+- **Ataques de fuerza bruta:** Intentar acceder a cuentas probando múltiples combinaciones de usuario y contraseña.
+- **Cross-Site Scripting (XSS):** Incluir scripts maliciosos en formularios o campos de entrada para ejecutar código en el navegador de otros usuarios.
+- **DDoS (Distributed Denial of Service):** Saturar el servidor con un volumen masivo de solicitudes para que se vuelva inoperativo.
+- **Acceso no autorizado:** Explorar rutas no protegidas para acceder a recursos restringidos.
+- **Escaneo de puertos y vulnerabilidades:** Intentar detectar configuraciones abiertas o vulnerabilidades en los puertos del servidor.
+- **Phishing y ataques de ingeniería social:** Engañar a usuarios para que revelen información sensible.
+
+2.
+
+El sistema de detección podría llevar a cabo las siguientes funciones y usar estas herramientas/técnicas:
+
+- **Monitoreo de tráfico de red:** Detectar patrones de tráfico inusuales o picos que indiquen ataques DDoS, con herramientas como **Snort**.
+- **Análisis de registros (logs):** Revisar los registros de acceso y eventos en tiempo real para identificar comportamientos sospechosos, utilizando **ELK Stack (Elasticsearch, Logstash, Kibana)**.
+- **Detección de firmas:** Identificar patrones de ataques conocidos mediante el uso de bases de datos de firmas de ataques y sistemas de prevención de intrusiones (IPS).
+- **Sistemas de detección de intrusiones (IDS):** Detectar anomalías en el tráfico o actividades sospechosas con herramientas como **Suricata**.
+- **Tasa de solicitudes:** Detectar y limitar el número de solicitudes en intervalos cortos para mitigar ataques de fuerza bruta.
+- **Validación de entrada y sanitización:** Filtrar y validar los datos de entrada del usuario para evitar inyecciones de SQL y XSS.
+- **Machine Learning y detección de anomalías:** Entrenar modelos que aprendan comportamientos normales y alerten sobre patrones que difieran significativamente.
+- **Pólizas de autenticación robustas:** Monitorear intentos de autenticación fallidos y bloquear cuentas tras varios intentos fallidos.
+
+3.
+
+La poda alfa-beta es una técnica usada para optimizar la búsqueda en un árbol de decisiones, comúnmente aplicada en inteligencia artificial para juegos. Se podría aplicar a un sistema de detección de ciberataques en situaciones en las que el sistema deba tomar decisiones sobre la mejor forma de mitigar o responder a un ataque. Por ejemplo, si hay una lista de contramedidas posibles, el sistema podría evaluar las opciones con base en la probabilidad de éxito y el riesgo, descartando aquellas que no cumplen con los criterios para reducir el número de opciones a evaluar.
+
+Para cada nodo (acción del atacante), el sistema podría calcular un valor que represente su peligrosidad o impacto. Si en algún punto encuentra una opción de defensa que claramente es más efectiva que las demás (cumple con cierto nivel de confianza), el sistema omite evaluar el resto de las opciones posibles, agilizando el proceso de decisión.
+
+4.
+1. **¿El ataque es detectado como DDoS?**  
+   - **Sí:**  
+      - **¿El tráfico es legítimo?**  
+         - **Sí:** Permitir tráfico, escalar capacidad de servidores si es necesario.
+         - **No:** Activar mitigación DDoS, bloquear IPs sospechosas.
+   - **No:** Pasar al siguiente nodo.
+   
+2. **¿El ataque es detectado como fuerza bruta?**  
+   - **Sí:**  
+      - **¿Es la misma IP con múltiples intentos?**  
+         - **Sí:** Bloquear temporalmente la IP, enviar alerta de seguridad.
+         - **No:** Aplicar captcha, bloquear después de 5 intentos fallidos.
+   - **No:** Pasar al siguiente nodo.
+
+3. **¿El ataque es detectado como SQL Injection o XSS?**  
+   - **Sí:**  
+      - **¿Input está sanitizado?**  
+         - **Sí:** Continuar y monitorear el tráfico.
+         - **No:** Bloquear entrada y registrar el intento de ataque.
